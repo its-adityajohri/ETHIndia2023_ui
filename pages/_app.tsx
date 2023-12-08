@@ -13,7 +13,7 @@ import {
   zora,
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-
+import Nav from '../components/nav';
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
+        <Nav/>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
