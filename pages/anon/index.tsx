@@ -6,13 +6,14 @@ import styles from '../styles/Home.module.css';
 const Home: NextPage = () => {
   return (
     <div >
-    
+     
 
-      <h1 className="text-3xl font-bold underline">
-      Bridge
+<div>
+      <h1 className="text-3xl font-bold self-center underline">
+Create Your Anon Wallet
     </h1>
 
-
+    </div>
 
       
 
