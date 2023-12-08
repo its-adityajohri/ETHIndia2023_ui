@@ -14,7 +14,7 @@ function Nav() {
 
 
   return (
-    <div className='flex flex-row justify-between h-[60px] items-center p-[10px] bg-opacity-20 bg-white backdrop-blur-md border border-gray-200 rounded'>
+    <div className='flex flex-row justify-between h-[60px] items-center p-[10px] bg-opacity-20 bg-white backdrop-blur-md border border-gray-200 rounded shadow-lg'>
      <Link href="/"> 
 {mounted?
      <h1 className=''>
