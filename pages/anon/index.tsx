@@ -157,7 +157,7 @@ const Home: NextPage = () => {
 
 
       <div className='bg-blue-200 h-[120rem] w-full flex flex-col  items-center p-[2rem] gap-[2rem] '>
-          {/* <h1 className="text-3xl font-bold   font-inter">
+          {/* <h1 className="text-3xl font-bold   font-poppins">
               Create Your Anon Wallet
           </h1> */}
           <div className=' bg-blue-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-40 border border-gray-100  rounded-md shadow-md flex  flex-col p-[2rem] items-center'>
@@ -174,7 +174,7 @@ const Home: NextPage = () => {
           </TabsList> */}
               <TabsContent value="account">
                 <div className='flex flex-col items-center self-center justify-between gap-[3rem] w-full'>
-                  <p className='font-inter text-3xl font-bold'>Connect your Wallet</p>
+                  <p className='font-poppins text-3xl font-bold'>Connect your Wallet</p>
                 <ConnectButton/>
                 <button onClick={handleNextClick} className=" w-full self-end bg-blue-950 text-blue-400 border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                 <span className="bg-blue-400 shadow-blue-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
@@ -184,7 +184,7 @@ const Home: NextPage = () => {
                 </TabsContent>
               <TabsContent value="password">
               <div className='flex flex-col items-center self-center justify-between gap-[2rem] w-full'>
-              <p className='font-inter text-3xl font-bold '>Create Anon KYC Proof</p>
+              <p className='font-poppins text-3xl font-bold '>Create Anon KYC Proof</p>
               {/* <LogInWithAnonAadhaar /> */}
               {anonAadhaar?.status !== "logged-in" &&
                   <LogInWithAnonAadhaar />
@@ -220,7 +220,7 @@ const Home: NextPage = () => {
               </TabsContent>
               <TabsContent value="create">
               <div className='flex flex-col items-center self-center justify-between gap-[3rem] w-full'>
-              <p className='font-inter text-3xl'>Create Anon KYC Proof</p>
+              <p className='font-poppins text-3xl'>Create Anon KYC Proof</p>
                 <Button onClick={() => callCreate(anonAadhaar)} className='bg-white text-black hover:bg-white'>Create Wallet</Button>
                 <button onClick={handlePreviousClick} className=" w-full self-start bg-blue-950 text-blue-400 border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                 <span className="bg-blue-400 shadow-blue-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
@@ -228,7 +228,7 @@ const Home: NextPage = () => {
         </button>
         
         {safeAddress && (<div className='w-full flex flex-col justify-center items-center bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-100 p-[2rem] gap-[1rem]'>
-        <p className='font-inter'>KYC wallet details</p>
+        <p className='font-poppins'>KYC wallet details</p>
         <Table>
   {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
   <TableHeader>

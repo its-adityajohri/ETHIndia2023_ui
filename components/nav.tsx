@@ -22,16 +22,16 @@ function Nav() {
            <div className='flex flex-row justify-center items-center'>
               <img src="/bridgelogo.png" className='h-[160px]' alt="Bridge Logo" />
               <div>
-                <p className='font-inter text-3xl font-bold'>Decimal Bridge</p>
-                <p className='font-inter text-xl font-bold text-[13px]'>Faster, cheaper and more secure</p>
+                <p className='font-poppins text-3xl font-bold'>Decimal Bridge</p>
+                <p className='font-poppins text-xl font-bold text-[13px]'>Faster, cheaper and more secure</p>
               </div>
             </div>
           ) : (
             <div className='flex flex-row justify-center items-center'>
               <img src="/logonobg.png" className='h-[160px]' alt="Decimal Wallet Logo" />
               <div>
-                <p className='font-inter text-3xl font-bold'>Decimal Wallet</p>
-                <p className='font-inter text-xl font-bold text-[13px]'>KYC, Non-custodial & 4337 compliant</p>
+                <p className='font-poppins text-3xl font-bold'>Decimal Wallet</p>
+                <p className='font-poppins text-xl font-bold text-[13px]'>KYC, Non-custodial & 4337 compliant</p>
               </div>
             </div>
           )}
