@@ -52,7 +52,7 @@ const Home: NextPage = () => {
     if (typeof window.ethereum !== 'undefined') {
       // Create a provider
        // @ts-ignore 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
   
       // Request the user to enable the wallet if it's not already enabled
       await provider.send("eth_requestAccounts", []);

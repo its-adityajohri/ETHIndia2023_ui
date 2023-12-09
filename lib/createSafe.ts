@@ -11,28 +11,28 @@ import { KycWallet__factory, Verifier__factory } from "../lib/typechain-types";
 
 async function createSafe(admin: any, a: any, b: any, c: any, input: any)  {
   let verifier = await new Verifier__factory(admin).deploy();
-  await verifier.deployed();
+  await verifier.waitForDeployment();
 
-  console.log("verifier", verifier.address);
+  console.log("verifier", await verifier.getAddress());
   let wallet = await new KycWallet__factory(admin).deploy(
-    verifier.address,
+    await verifier.getAddress(),
     a as [BigNumberish, BigNumberish],
     b as [[BigNumberish, BigNumberish], [BigNumberish, BigNumberish]],
     c as [BigNumberish, BigNumberish],
     input,
   );
-  await wallet.deployed();
-  console.log("kyc module",  wallet.address);
-console.log(await admin.provider)
+  await wallet.waitForDeployment();
+  console.log("kyc module",  await wallet.getAddress());
+console.log( admin.provider)
   const ethAdapterOwner1 = new EthersAdapter({
-    ethers: await admin.provider,
+    ethers: admin.provider,
     signerOrProvider: admin,
   });
 console.log(ethAdapterOwner1)
 console.log(admin.getAddress())
-console.log(wallet.address)
+console.log(await wallet.getAddress())
   const safeAccountConfig: SafeAccountConfig = {
-    owners: [await admin.getAddress(),  wallet.address],
+    owners: [await admin.getAddress(),  await wallet.getAddress()],
     threshold: 1,
   };
 console.log(safeAccountConfig)
@@ -41,13 +41,14 @@ console.log(safeAccountConfig)
   });
 console.log(safeFactory)
   const safeSdkOwner1 = await safeFactory.deploySafe({ safeAccountConfig });
+
 console.log(safeSdkOwner1)
   const safeAddress = await safeSdkOwner1.getAddress();
 console.log(safeAddress)
   console.log("Your Safe has been deployed:");
   console.log(`${safeAddress}`);
 
-  return {safeAddress, kycModule: wallet.address};
+  return {safeAddress, kycModule: await wallet.getAddress()};
 }
 
 export default createSafe;
