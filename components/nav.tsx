@@ -14,11 +14,11 @@ function Nav() {
 
 
   return (
-    <div className='flex flex-row justify-between h-[90px] items-center p-[10px] bg-opacity-20 bg-white backdrop-blur-md border border-gray-200 rounded shadow-lg'>
+    <div className='flex flex-row justify-between h-[90px] items-center p-[10px] bg-blue-200 shadow-lg'>
      <Link href="/"> 
 
 <div className='flex flex-row items-center'>
-       <img src="/logonobg.png" className='h-[80px]'/>
+       <img src="/logonobg.png" className='h-[120px]'/>
        <div>
         <p className='font-inter '>Decimal Wallet</p>
         <p className='font-inter text-[13px]'>KYC, Non-custodial & 4337 compliant</p>
