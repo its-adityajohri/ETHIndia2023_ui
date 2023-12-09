@@ -94,8 +94,8 @@ const Home: NextPage = () => {
 
   return (
 
-    <div>
-      <div className='bg-blue-200 h-[100rem] w-full flex flex-col  items-center p-[2rem] gap-[2rem] '>
+
+      <div className='bg-blue-200 h-[120rem] w-full flex flex-col  items-center p-[2rem] gap-[2rem] '>
           <h1 className="text-3xl font-bold   font-inter">
               Create Your Anon Wallet
           </h1>
@@ -139,11 +139,16 @@ const Home: NextPage = () => {
                       </button>
                     </>
                     )}
-
+                    <div className='w-full flex flex-row justify-between'>
+<button onClick={handlePreviousClick} className=" self-start bg-blue-950 text-blue-400 border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                <span className="bg-blue-400 shadow-blue-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+         {`<- Previous`}
+        </button>
 <button onClick={handleNextClick} className=" self-end bg-blue-950 text-blue-400 border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                 <span className="bg-blue-400 shadow-blue-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
          {`Next ->`}
         </button>
+        </div>
                 </div>
                 
               </TabsContent>
@@ -161,7 +166,7 @@ const Home: NextPage = () => {
            
           </div>
       </div>
-    </div>  
+   
   );
 };
 
