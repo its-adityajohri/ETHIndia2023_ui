@@ -14,17 +14,20 @@ function Nav() {
 
 
   return (
-    <div className='flex flex-row justify-between h-[60px] items-center p-[10px] bg-opacity-20 bg-white backdrop-blur-md border border-gray-200 rounded shadow-lg'>
+    <div className='flex flex-row justify-between h-[90px] items-center p-[10px] bg-opacity-20 bg-white backdrop-blur-md border border-gray-200 rounded shadow-lg'>
      <Link href="/"> 
-{mounted?
-     <h1 className=''>
-       
-        <p>Decimals</p>
-        
-      </h1>:""}
+
+<div className='flex flex-row items-center'>
+       <img src="/logonobg.png" className='h-[80px]'/>
+       <div>
+        <p className='font-inter '>Decimal Wallet</p>
+        <p className='font-inter text-[13px]'>KYC, Non-custodial & 4337 compliant</p>
+        </div>
+        </div>
+      
       </Link>   
         <div className='flex flex-row gap-[1rem]   '>
-          {/* <div className='text-center'>credits private:{credits != null ?credits:"-"}</div> */}
+        
          
         {/* <ConnectButton chainStatus="icon"/> */}
         </div>
