@@ -17,7 +17,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import Nav from '../components/nav';
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
 import { connectorsForWallets } from '@rainbow-me/rainbowkit';
-
+import { Toaster } from "../components/ui/toaster"
 const app_id = process.env.NEXT_PUBLIC_APP_ID || "";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -55,6 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains}>
         <Nav/>
         <Component {...pageProps} />
+        <Toaster />
       </RainbowKitProvider>
       </AnonAadhaarProvider>
     </WagmiConfig>
