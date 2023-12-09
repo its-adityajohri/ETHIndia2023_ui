@@ -9,8 +9,9 @@ import { ethers } from 'ethers';
 import {
   LogInWithAnonAadhaar,
   useAnonAadhaar,
-  AnonAadhaarProof,
+  AnonAadhaarProof, 
 } from "anon-aadhaar-react";
+import {exportCallDataGroth16FromPCD} from 'anon-aadhaar-pcd'
 import { useEffect } from 'react';
 import { Clipboard } from 'lucide-react';
 import createSafe from '../../lib/createSafe';
@@ -38,12 +39,15 @@ const Home: NextPage = () => {
       return null;
     }
   }
-  async function callCreate() {
+  async function callCreate(anonAadhar: any) {
     // Check if window.ethereum is available
     // @ts-ignore 
-   const signer = await getSigner();
-   console.log(signer);
-   createSafe(signer);
+    
+    const {a,b,c,Input} = await exportCallDataGroth16FromPCD(anonAadhaar.pcd);
+    console.log(JSON.stringify({a,b,c,Input}));
+    const signer = await getSigner();
+    console.log(signer);
+    createSafe(signer,a,b,c,Input);
 
   }
 
@@ -97,7 +101,7 @@ Create Your Anon Wallet
   </TabsContent>
   <TabsContent value="create">
  {/* @ts-ignore */}
-    <button onClick={() => callCreate()}>create Wallet</button>
+    <button onClick={() => callCreate(anonAadhaar)}>create Wallet</button>
     
     </TabsContent>
 </Tabs>

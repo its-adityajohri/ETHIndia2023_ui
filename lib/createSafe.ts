@@ -7,19 +7,19 @@ import {
 } from "@safe-global/protocol-kit";
 
 import { KycWallet__factory, Verifier__factory } from "../lib/typechain-types";
-import * as kycData from "../lib/kycData.json";
+// import * as kycData from "../lib/kycData.json";
 
-async function createSafe(admin: any) {
+async function createSafe(admin: any, a: any, b: any, c: any, input: any)  {
   let verifier = await new Verifier__factory(admin).deploy();
   await verifier.deployed();
 
   console.log("verifier", verifier.address);
   let wallet = await new KycWallet__factory(admin).deploy(
     verifier.address,
-    kycData.a as [BigNumberish, BigNumberish],
-    kycData.b as [[BigNumberish, BigNumberish], [BigNumberish, BigNumberish]],
-    kycData.c as [BigNumberish, BigNumberish],
-    kycData.Input,
+    a as [BigNumberish, BigNumberish],
+    b as [[BigNumberish, BigNumberish], [BigNumberish, BigNumberish]],
+    c as [BigNumberish, BigNumberish],
+    input,
   );
   await wallet.deployed();
   console.log("kyc module",  wallet.address);
