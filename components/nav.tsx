@@ -26,7 +26,7 @@ function Nav() {
         <div className='flex flex-row gap-[1rem]   '>
           {/* <div className='text-center'>credits private:{credits != null ?credits:"-"}</div> */}
          
-        <ConnectButton chainStatus="icon"/>
+        {/* <ConnectButton chainStatus="icon"/> */}
         </div>
     </div>
   )
