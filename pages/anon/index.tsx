@@ -126,6 +126,7 @@ const Home: NextPage = () => {
         title: "Success",
         description: "Anon Aadhaar KYC proof has been generated!",
       });
+      setProofReady(true)
     }
   }, [anonAadhaar]);
 
