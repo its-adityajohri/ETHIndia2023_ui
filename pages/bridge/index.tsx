@@ -1,5 +1,4 @@
-"use client"
-
+import web3 from "../../web3config";
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "../../lib/utils"
@@ -124,13 +123,25 @@ const Home: NextPage = () => {
   const [value2, setValue2] = React.useState("")
   const [open3, setOpen3] = React.useState(false)
   const [value3, setValue3] = React.useState("")
+  const [input1, setInput1] = React.useState("");
+  const [input2, setInput2] = React.useState("");
+
+  const handleSubmit = async () => {
+    console.log(value1, value2, value3, input1, input2);
+    setValue1("");
+    setValue2("");
+    setValue3("");
+    setInput1("");
+    setInput2("");
+  };
+
   return (
     <div className="bg-blue-200 h-screen w-full flex items-center flex-col">
       <div className="bg-blue-400 w-11/12 h-2/6 rounded-md shadow-md mt-10 flex items-center flex-col"> 
         <h2 className="my-5 text-xl font-bold">Token Transfer</h2>
         <div className="flex justify-around w-full">
           <div className="grid w-full max-w-sm items-center gap-1.5 ml-5">
-            <Label htmlFor="from network">From Network</Label>
+            <Label htmlFor="token">Token</Label>
             <Popover open={open2} onOpenChange={setOpen2}>
                 <PopoverTrigger asChild>
                     <Button
@@ -174,7 +185,7 @@ const Home: NextPage = () => {
             </Popover>
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5 ml-5">
-            <Label htmlFor="token">Token</Label>
+            <Label htmlFor="from Network">from Network</Label>
             <Popover open={open1} onOpenChange={setOpen1}>
                 <PopoverTrigger asChild>
                     <Button
@@ -220,7 +231,7 @@ const Home: NextPage = () => {
           
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="quantity">Quantity</Label>
-            <Input type="quantity" id="quantity" placeholder="Quantity" />
+            <Input type="quantity" id="quantity" placeholder="Quantity" value={input1} onChange={(e) => setInput1(e.target.value)} />
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5 ml-10">
             <Label htmlFor="destination network">Destination Network</Label>
@@ -268,10 +279,10 @@ const Home: NextPage = () => {
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5 mr-5">
             <Label htmlFor="destination wallet address">Destination Wallet Address</Label>
-            <Input type="destination wallet address" id="destination wallet address" placeholder="Destination Wallet Address" />
+            <Input type="destination wallet address" id="destination wallet address" placeholder="Destination Wallet Address" value={input2}  onChange={(e) => setInput2(e.target.value)}/>
           </div>
         </div>
-        <Button className="mt-7">Submit</Button>
+        <Button className="mt-7" onClick={handleSubmit}>Submit</Button>
       </div>
       <div className="bg-blue-400 w-11/12 h-2/5 rounded-md shadow-md mt-10 flex items-center flex-col">
         <h2 className="my-5 text-xl font-bold">Transfer History</h2>
