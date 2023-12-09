@@ -129,7 +129,7 @@ const Home: NextPage = () => {
       <div className="bg-blue-400 w-11/12 h-2/6 rounded-md shadow-md mt-10 flex items-center flex-col"> 
         <h2 className="my-5 text-xl font-bold">Token Transfer</h2>
         <div className="flex justify-around w-full">
-        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="grid w-full max-w-sm items-center gap-1.5 ml-5">
             <Label htmlFor="from network">From Network</Label>
             <Popover open={open2} onOpenChange={setOpen2}>
                 <PopoverTrigger asChild>

@@ -11,6 +11,7 @@ import {
   useAnonAadhaar,
   AnonAadhaarProof, 
 } from "anon-aadhaar-react";
+import { Button } from "../../components/ui/button"
 import {exportCallDataGroth16FromPCD} from 'anon-aadhaar-pcd'
 import { useEffect } from 'react';
 import { Clipboard } from 'lucide-react';
@@ -67,56 +68,44 @@ const Home: NextPage = () => {
 
   return (
 
-     
-<div>
-<div className='flex flex-col justify-center items-center p-[2rem] gap-[2rem]'>
-      <h1 className="text-3xl font-bold   font-inter">
-Create Your Anon Wallet
-    </h1>
-    <div className=''>
-    <Tabs defaultValue="account" className="w-[400px]">
-  <TabsList>
-    <TabsTrigger value="account">Connect Wallet</TabsTrigger>
-    <TabsTrigger value="password">Go through Anon Aadhaar KYC</TabsTrigger>
-    <TabsTrigger value="create">Aadhaar Wallet Creation</TabsTrigger>
-  </TabsList>
-  <TabsContent value="account"><ConnectButton/></TabsContent>
-  <TabsContent value="password">
-  <div>
-      <LogInWithAnonAadhaar />
-      <p>{anonAadhaar?.status}</p>
-    </div>
-    <div >
-      {/* Render the proof if generated and valid */}
-      {anonAadhaar?.status === "logged-in" && (
-        <>
-          <p>✅ Proof is valid</p>
-          <AnonAadhaarProof code={JSON.stringify(anonAadhaar.pcd, null, 2)}/>
-          <button onClick={copyToClipboard}>
-         <Clipboard/>
-          </button>
-        </>
-        )}
-    </div>
-  </TabsContent>
-  <TabsContent value="create">
- {/* @ts-ignore */}
-    <button onClick={() => callCreate(anonAadhaar)}>create Wallet</button>
-    
-    </TabsContent>
-</Tabs>
-</div>
-    </div>
-
-      
-
+    <div>
+      <div className='bg-blue-200 h-screen w-full flex flex-col  items-center p-[2rem] gap-[2rem] '>
+          <h1 className="text-3xl font-bold   font-inter">
+              Create Your Anon Wallet
+          </h1>
+          <div className='bg-blue-400 w-11/12 h-2/4 rounded-md shadow-md flex items-center flex-col p-4 justify-center'>
+            <Tabs defaultValue="account" className="w-[400px]">
+              <TabsList>
+                <TabsTrigger value="account">Connect Wallet</TabsTrigger>
+                <TabsTrigger value="password">Go through Anon Aadhaar KYC</TabsTrigger>
+                <TabsTrigger value="create">Aadhaar Wallet Creation</TabsTrigger>
+              </TabsList>
+              <TabsContent value="account"><ConnectButton/></TabsContent>
+              <TabsContent value="password">
+                <div>
+                  <LogInWithAnonAadhaar />
+                  <p>{anonAadhaar?.status}</p>
+                </div>
+                <div >
+                  {/* Render the proof if generated and valid */}
+                  {anonAadhaar?.status === "logged-in" && (
+                    <>
+                      <p>✅ Proof is valid</p>
+                      <AnonAadhaarProof code={JSON.stringify(anonAadhaar.pcd, null, 2)}/>
+                      <button onClick={copyToClipboard}>
+                    <Clipboard/>
+                      </button>
+                    </>
+                    )}
+                </div>
+              </TabsContent>
+              <TabsContent value="create">
+                <Button onClick={() => callCreate(anonAadhaar)}>create Wallet</Button>
+              </TabsContent>
+            </Tabs>
+          </div>
+      </div>
     </div>  
-
-        
-
-
-    
-   
   );
 };
 
