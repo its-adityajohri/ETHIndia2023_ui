@@ -11,6 +11,8 @@ import {
   polygon,
   base,
   zora,
+  arbitrumSepolia,
+  celoAlfajores,
 } from 'wagmi/chains';
 
 import { publicProvider } from 'wagmi/providers/public';
@@ -22,7 +24,7 @@ const app_id = process.env.NEXT_PUBLIC_APP_ID || "";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
-   sepolia,
+   sepolia, arbitrumSepolia,celoAlfajores,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
   [publicProvider()]
