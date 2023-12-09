@@ -1,4 +1,3 @@
-import web3 from "../../web3config";
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "../../lib/utils"
@@ -29,64 +28,106 @@ import {
 
 const networks = [
   {
+    value: "celo testnet",
+    label: "Celo Testnegt",
+    logosrc: "/celo.jpeg",
+
+  },
+  {
+    value: "arb sepolia testnet",
+    label: "Arb Sepolia Testnet",
+    logosrc: "/arbitrumone.svg",
+  
+  },
+  {
+    value: "sepolia testnet",
+    label: "Sepolia Testnet",
+    logosrc: "/sepolia.png",
+  
+  },
+  {
     value: "ethereum",
     label: "Ethereum",
-  },
-  {
-    value: "gnosis",
-    label: "Gnosis",
-  },
-  {
-    value: "polygon",
-    label: "Polygon",
-  },
-  {
-    value: "optimism",
-    label: "Optimism",
-  },
-  {
-    value: "arbitrum one",
-    label: "Arbitrum One",
+    logosrc: "/ethereum.svg",
+
   },
   {
     value: "base",
     label: "BASE",
+    logosrc: "/base.svg",
+
+  },
+  
+  
+  
+  {
+    value: "scroll",
+    label: "Scroll",
+    logosrc: "/scroll.png",
+    
   },
   {
-    value: "linea",
-    label: "Linea",
+    value: "zeta",
+    label: "Zeta",
+    logosrc: "/zeta.jpg",
+    
   },
   {
-    value: "arbitrum nova",
-    label: "Arbitrum Nova",
+    value: "polygon",
+    label: "Polygon",
+    logosrc: "/polygon.svg",
+
   },
+  {
+    value: "xdc",
+    label: "XDC Network",
+    logosrc: "/xdc.png",
+    
+  },
+  // {
+  //   value: "arbitrum nova",
+  //   label: "Arbitrum Nova",
+  //   logosrc: "/arbitrumnova.svg",
+    
+  // },
 ]
 
 const tokens = [
   {
-    value: "eth",
-    label: "ETH",
+    value: "decomal token",
+    label: "Decimal Token",
+    logosrc: "/logo.png",
   },
-  {
-    value: "usdc",
-    label: "USDC",
-  },
-  {
-    value: "usdt",
-    label: "USDT",
-  },
-  {
-    value: "matic",
-    label: "MATIC",
-  },
-  {
-    value: "dai",
-    label: "DAI",
-  },
-  {
-    value: "hop",
-    label: "HOP",
-  },
+  // {
+  //   value: "eth",
+  //   label: "ETH",
+  //   logosrc: "/ethereum.svg",
+  // },
+  // {
+  //   value: "usdc",
+  //   label: "USDC",
+  //   logosrc: "/usdc.svg",
+  // },
+  // {
+  //   value: "usdt",
+  //   label: "USDT",
+  //   logosrc: "/usdt.svg",
+  // },
+  // {
+  //   value: "matic",
+  //   label: "MATIC",
+  //   logosrc: "/matic.svg",
+  // },
+  // {
+  //   value: "dai",
+  //   label: "DAI",
+  //   logosrc: "/dai.svg",
+  // },
+  // {
+  //   value: "hop",
+  //   label: "HOP",
+  //   logosrc: "/hop.svg",
+  // },
 ]
 
 const transactions = [
@@ -176,7 +217,8 @@ const Home: NextPage = () => {
                                 value2 === token.value ? "opacity-100" : "opacity-0"
                             )}
                             />
-                            {token.label}
+                            <img src={token.logosrc} className='h-[35px] mr-5'/>
+                            {token.label} 
                         </CommandItem>
                         ))}
                     </CommandGroup>
@@ -220,6 +262,7 @@ const Home: NextPage = () => {
                                 value1 === network.value ? "opacity-100" : "opacity-0"
                             )}
                             />
+                            <img src={network.logosrc} className='h-[35px] mr-5'/>
                             {network.label}
                         </CommandItem>
                         ))}
@@ -269,6 +312,7 @@ const Home: NextPage = () => {
                                 value3 === network.value ? "opacity-100" : "opacity-0"
                             )}
                             />
+                            <img src={network.logosrc} className='h-[35px] mr-5'/>
                             {network.label}
                         </CommandItem>
                         ))}
@@ -282,7 +326,7 @@ const Home: NextPage = () => {
             <Input type="destination wallet address" id="destination wallet address" placeholder="Destination Wallet Address" value={input2}  onChange={(e) => setInput2(e.target.value)}/>
           </div>
         </div>
-        <Button className="mt-7" onClick={handleSubmit}>Submit</Button>
+        <Button className="mt-7 text-xl" onClick={handleSubmit}>Submit</Button>
       </div>
       <div className="bg-blue-400 w-11/12 h-2/5 rounded-md shadow-md mt-10 flex items-center flex-col">
         <h2 className="my-5 text-xl font-bold">Transfer History</h2>
