@@ -14,7 +14,9 @@ import {
   arbitrumSepolia,
   celoAlfajores,
 } from 'wagmi/chains';
-
+import {
+  oktoWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 import { publicProvider } from 'wagmi/providers/public';
 import Nav from '../components/nav';
 import { AnonAadhaarProvider } from "anon-aadhaar-react";
@@ -39,6 +41,25 @@ const { wallets } = getDefaultWallets({
 
  const connectors = connectorsForWallets([
   ...wallets,
+  {
+    groupName: "Recommended",
+    wallets: [
+      
+      oktoWallet({
+        chains,
+        projectId: '8bfb5108a6332499700ca9e62adf9b84',
+        walletConnectOptions: {
+          projectId: '8bfb5108a6332499700ca9e62adf9b84',
+          // @ts-ignore 
+          metadata: {
+            name: "Decimal", //mandatory
+          
+          },
+        },
+        walletConnectVersion: "2",
+      }),
+    ],
+  },
 
  ])
 

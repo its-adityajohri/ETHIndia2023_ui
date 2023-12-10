@@ -18,7 +18,7 @@ function Nav() {
     <div className='flex flex-row justify-between h-[120px] items-center px-[10px] py-[20px] bg-blue-200 shadow-lg'>
      <Link href="/"> 
 
-     {router.pathname === '/bridge' ? (
+     {router.pathname !== '/anon' ? (
            <div className='flex flex-row justify-center items-center'>
               <img src="/bridgelogo.png" className='h-[160px]' alt="Bridge Logo" />
               <div>
