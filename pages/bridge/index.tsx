@@ -10,6 +10,7 @@ import {
   CommandInput,
   CommandItem,
 } from "../../components/ui/command"
+import { formatUnits } from "ethers"
 import Link from "next/link"
 import { ethers } from "ethers"
 import { useEffect } from "react"
@@ -28,8 +29,8 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table"
-import { usePrepareContractWrite,useContractWrite ,useWaitForTransaction} from "wagmi"
-
+import { usePrepareContractWrite,useContractWrite ,useWaitForTransaction,useContractRead} from "wagmi"
+import {MyToken__factory, MyToken} from "../../lib/typechain-types"
 const networks = [
   {
     value: "celo",
@@ -170,7 +171,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { useToast } from "../../components/ui/use-toast"
-
+import { useAccount } from "wagmi"
 const Home: NextPage = () => {
   const [open1, setOpen1] = React.useState(false)
   const [value1, setValue1] = React.useState("")
@@ -188,8 +189,10 @@ const Home: NextPage = () => {
   const [toChainId, setToChainId] = React.useState(null);
   const [fromTx,setFromTx] = React.useState(null);
   const [toTx,setToTx] = React.useState(null);
+  const [currentAllowance,setCurrentAllowance] = React.useState(null);
+  const [allowFlag,setAllowFlag] = React.useState(false);
   const {toast} = useToast();
- 
+  const {isConnected,address} = useAccount();
   React.useEffect(() => {
     if (value1 === value3) {
       setValue3(""); // Reset the destination network
@@ -197,6 +200,8 @@ const Home: NextPage = () => {
   }, [value1, value3]);
   const destinationNetworks = networks.filter(network => network.value !== value1);
   //contract part starts
+
+ 
   //token approval 
   
 
@@ -223,6 +228,23 @@ const Home: NextPage = () => {
           setBaseToUrl(selectedToNetwork.baseurl)
     }
   }, [value1,value3]);
+
+  const { data, isError:isErrorRead, isLoading:isLoadingRead } = useContractRead({
+    address: tokenAddress?tokenAddress:"0xadssw",
+    abi: TOKENABI,
+    functionName: 'allowance',
+    args: [`${address}`,`${bridgeAddress}`],
+    onSuccess(data) {
+      // @ts-ignore 
+      console.log('reading allowance',formatUnits(data, 18))
+       // @ts-ignore 
+      setCurrentAllowance(formatUnits(data, 18))
+  },
+  onError(error) {
+      console.error(`Error while reading allowance:`, error);
+  }
+  })
+
   const { config: configapproval, error: errorapproval } =
     usePrepareContractWrite({
      
@@ -272,7 +294,7 @@ const Home: NextPage = () => {
           ? ethers.parseEther(`${input1}`)
           : ethers.parseEther(`0`),
       ],
-      enabled: Boolean(input1)  && Boolean(input2),
+      enabled: Boolean(input1)  && Boolean(input2) && Boolean(allowFlag),
       onSuccess(data) {
       console.log("success bridge token  contract set",data)
       },
@@ -306,31 +328,97 @@ const Home: NextPage = () => {
       title: "Token Approval",
       description: "Accept Token Approval to proceed with bridging",
     });
+    // // @ts-ignore 
+    // await writeapproval();
     // @ts-ignore 
-    await writeapproval();
+    if (typeof window.ethereum !== 'undefined') {
+      // @ts-ignore 
+    const provider = new ethers.BrowserProvider(window.ethereum);
+console.log(provider)
+// Request account access if needed
+await provider.send('eth_requestAccounts', []);
+
+// Set up the signer
+const signer = await provider.getSigner();
+// // @ts-ignore 
+// const tokenAddress = tokenAddress || "0xadssw";
+// // @ts-ignore 
+// const bridgeAddress = bridgeAddress || "0xadssw";
+const approvalAmount = input1 ? ethers.parseEther(`${input1}`) : ethers.parseEther("0.1");
+
+// Create a new instance of the contract
+// @ts-ignore 
+const contract = new ethers.Contract(tokenAddress, TOKENABI, signer);
+// @ts-ignore 
+const contractbridge = new ethers.Contract(bridgeAddress, BRIDGEABI, signer);
+// const tokenContract = MyToken__factory.connect(tokenAddress, signer);
+
+try {
+
+  // let allowance = await tokenContract.allowance(await signer.getAddress(), bridgeAddress);
+    // Call the approve function
+    const transaction = await contract.approve(bridgeAddress, approvalAmount);
+
+    console.log('Transaction sent:', transaction.hash);
+
+    // Wait for the transaction to be mined
+    const receipt = await transaction.wait();
    
-    
+    console.log('Transaction confirmed:', receipt);
+         toast({
+        title: "Token Approval Successful",
+        description: "Accept bridge trx to compelte bridging of assets",
+      });
+    // setAllowFlag(true)
+    //calling bridge
+    // @ts-ignore 
+    // await writebridge();
+    const transactionbridge = await contractbridge.bridgeToken(`${toChainId}`, `${tokenAddress}`,`${input2}`,
+    input1
+      ? ethers.parseEther(`${input1}`)
+      : ethers.parseEther(`0`));
+
+      console.log('Transaction sent:', transactionbridge.hash);
+      const receiptbridge = await transactionbridge.wait();
+   
+    console.log('Transaction confirmed:', receiptbridge);
+
+     //  @ts-ignore 
+     setFromTx(`${baseFromUrl}/tx/${transactionbridge.hash}`)
+     //  @ts-ignore 
+     setToTx(`${baseToUrl}/address/${input2}#tokentxns`)
+
+     toast({
+      title: "Bridging Successful",
+      description: "Track your trxs with the links displayed",
+    });
+} catch (error) {
+    console.error('Error with approval contract call', error);
+    // Handle errors, e.g., show a toast
+}
+
+}   
     
     
   };
 
-  React.useEffect(() => {
+  // React.useEffect(() => {
 
-     const bridge =  async () => {
-      // @ts-ignore 
-      await writebridge();
+  //    const bridge =  async () => {
+  //     // @ts-ignore 
+  //     await writebridge();
 
-     }
-    if (isSuccessApprove && !isSuccessBridge) {
-      toast({
-        title: "Token Approval Successful",
-        description: "Accept bridge trx to compelte bridging of assets",
-      });
-        bridge();
+  //    }
+  //   if (isSuccessApprove && !isSuccessBridge) {
+  //     toast({
+  //       title: "Token Approval Successful",
+  //       description: "Accept bridge trx to compelte bridging of assets",
+  //     });
+  //       bridge();
         
       
-    }
-  }, [isSuccessApprove]);
+  //   }
+  // }, [isSuccessApprove]);
 
   React.useEffect(() => {
 
@@ -348,6 +436,33 @@ const Home: NextPage = () => {
      
    }
  }, [isSuccessBridge]);
+
+//  React.useEffect(() => {
+
+   
+//   if (currentAllowance) {
+   
+//     // @ts-ignore 
+//     if(currentAllowance >= input1)
+//      {
+//     //   toast({
+//     //    title: "Allowance has increased",
+//     //    description: "ready to bridge",
+//     //  });
+
+//      setAllowFlag(true)
+//      console.log('allow flag changed to true')
+
+//     } else
+//     {
+//       setAllowFlag(false)
+//       console.log('allow flag changed to false')
+//     }
+    
+//   }
+// }, [currentAllowance,input1,isSuccessApprove]);
+
+ 
   
 
 
@@ -505,7 +620,7 @@ const Home: NextPage = () => {
       </div>
       {toTx && 
       <div className="bg-blue-400 w-11/12 h-2/5 rounded-md shadow-md mt-10 flex items-center flex-col">
-        <h2 className="my-5 text-xl font-bold">Track the Transactions</h2>
+        <h2 className="my-5 text-xl font-bold">Transaction Status</h2>
           <Table>
             {/* <TableCaption className="text-md text-black">A list of your past transactions</TableCaption> */}
             <TableHeader>
@@ -523,12 +638,12 @@ const Home: NextPage = () => {
               ))} */}
               <TableRow>
               <TableCell className="font-medium ">
-                <Link href = {`${fromTx}`}>
+                <Link href = {`${fromTx}`} target="_blank">
                 {fromTx && fromTx}
                 </Link>
                 </TableCell>
                   <TableCell > 
-                    <Link href = {`${toTx}`}>
+                    <Link href = {`${toTx}`} target="_blank">
                 {toTx && toTx}
                 </Link>
                 </TableCell>
