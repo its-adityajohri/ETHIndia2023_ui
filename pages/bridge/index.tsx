@@ -367,7 +367,7 @@ try {
     console.log('Transaction confirmed:', receipt);
          toast({
         title: "Token Approval Successful",
-        description: "Accept bridge trx to compelte bridging of assets",
+        description: "Accept bridge trx to complete bridging of assets",
       });
     // setAllowFlag(true)
     //calling bridge
