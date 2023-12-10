@@ -221,7 +221,7 @@ const Home: NextPage = () => {
               </TabsContent>
               <TabsContent value="create">
               <div className='flex flex-col items-center self-center justify-between gap-[3rem] w-full'>
-              <p className='font-poppins text-3xl'>Create Anon KYC Proof</p>
+              <p className='font-poppins text-3xl'>Create Anon KYC Wallet</p>
                 <Button onClick={() => callCreate(anonAadhaar)} className='bg-white text-black hover:bg-white'>Create Wallet</Button>
                 <button onClick={handlePreviousClick} className=" w-full self-start bg-blue-950 text-blue-400 border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                 <span className="bg-blue-400 shadow-blue-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
